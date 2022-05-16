@@ -19,6 +19,18 @@
             <RowDefinition Height="7*"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        
+
+        <view:PanelTC
+            Grid.Column="0"
+            Grid.Row="0">
+            
+        </view:PanelTC>
+
+        <view:PanelTC
+            Grid.Column="1"
+            Grid.Row="0">
+
+        </view:PanelTC>
+
     </Grid>
 </Window>
