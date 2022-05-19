@@ -8,5 +8,13 @@ namespace MiniTC.ViewModel
 {
     class MainViewModel
     {
+        public MainViewModel()
+        {
+            PanelLewy = new PanelViewModel();
+            PanelPrawy = new PanelViewModel();
+        }
+
+        public PanelViewModel PanelLewy { get; set; }
+        public PanelViewModel PanelPrawy { get; set; }
     }
 }

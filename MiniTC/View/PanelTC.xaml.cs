@@ -24,5 +24,42 @@ namespace MiniTC.View
         {
             InitializeComponent();
         }
+
+        // DRIVES COMBOBOX
+
+        public static readonly DependencyProperty ComboboxProperty =
+            DependencyProperty.Register(
+                nameof(ItmSource), 
+                typeof(object), 
+                typeof(PanelTC), 
+                new PropertyMetadata(null));
+
+        public object ItmSource
+        {
+            get { return (object)GetValue(ComboboxProperty); }
+            set { SetValue(ComboboxProperty, value); }
+        }
+
+        public static readonly RoutedEvent DrivesCBEvent =
+        EventManager.RegisterRoutedEvent(nameof(DrivesCB),
+                     RoutingStrategy.Bubble, typeof(RoutedEventHandler),
+                     typeof(PanelTC));
+
+        public event RoutedEventHandler DrivesCB
+        {
+            add { AddHandler(DrivesCBEvent, value); }
+            remove { RemoveHandler(DrivesCBEvent, value); }
+        }
+
+        void RaiseDrive_combobox_DropDownOpened()
+        {
+            RoutedEventArgs newEventArgs = new RoutedEventArgs(PanelTC.DrivesCBEvent);
+            RaiseEvent(newEventArgs);
+        }
+
+        private void Drive_combobox_DropDownOpened(object sender, EventArgs e)
+        {
+            RaiseDrive_combobox_DropDownOpened();
+        }
     }
 }

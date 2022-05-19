@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace marne_proby.ViewModel
+namespace MiniTC.ViewModel
 {
     class RelayCommand : ICommand
     {
