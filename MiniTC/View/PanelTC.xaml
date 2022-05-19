@@ -12,7 +12,7 @@
     <UserControl.Resources>
         <viewmodel:PanelViewModel x:Key="pvm"></viewmodel:PanelViewModel>
     </UserControl.Resources>
-    
+
     <Grid Background="white">
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
@@ -26,18 +26,17 @@
                Content="drive:"
                VerticalContentAlignment="Center" Margin="22,0,0,0"/>
 
-        <StackPanel Grid.Row="0" 
-                    DataContext="{Binding Source={StaticResource pvm}}">
+        <StackPanel HorizontalAlignment="Center" 
+                    VerticalAlignment="Center"
+                    Margin="0,0,221,0"
+                    DataContext="{Binding Source={StaticResource pvm}}" Width="50" Height="26">
             <ComboBox x:Name="drive_combobox"
-                 HorizontalAlignment="Left"
-                 VerticalAlignment="Center"
                  HorizontalContentAlignment="Left"
-                 VerticalContentAlignment="Center"
-                 Margin="66,0,0,0" 
-                 Width="37"
+                 VerticalContentAlignment="Center" 
+                 Width="43"
                  Height="22"
-                 ItemsSource="{Binding Path=X}"
-                 SelectedItem="{Binding Path=Drives}"
+                 ItemsSource="{Binding ItmSource, RelativeSource={RelativeSource AncestorType={x:Type UserControl}, Mode=FindAncestor}}"
+                 SelectedItem="{Binding ItmSelection, RelativeSource={RelativeSource AncestorType={x:Type UserControl}, Mode=FindAncestor}}"
                  DropDownOpened="Drive_combobox_DropDownOpened"/>
         </StackPanel>
 

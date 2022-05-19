@@ -25,9 +25,9 @@ namespace MiniTC.View
             InitializeComponent();
         }
 
-        // DRIVES COMBOBOX
-
-        public static readonly DependencyProperty ComboboxProperty =
+        // DRIVES_COMBOBOX
+        //Properties
+        public static readonly DependencyProperty ComboboxSourceProperty =
             DependencyProperty.Register(
                 nameof(ItmSource), 
                 typeof(object), 
@@ -36,10 +36,24 @@ namespace MiniTC.View
 
         public object ItmSource
         {
-            get { return (object)GetValue(ComboboxProperty); }
-            set { SetValue(ComboboxProperty, value); }
+            get { return (object)GetValue(ComboboxSourceProperty); }
+            set { SetValue(ComboboxSourceProperty, value); }
         }
 
+        public static readonly DependencyProperty ComboboxSelectionProperty =
+            DependencyProperty.Register(
+                nameof(ItmSelection),
+                typeof(object),
+                typeof(PanelTC),
+                new PropertyMetadata(null));
+
+        public object ItmSelection
+        {
+            get { return (object)GetValue(ComboboxSelectionProperty); }
+            set { SetValue(ComboboxSelectionProperty, value); }
+        }
+
+        //Events
         public static readonly RoutedEvent DrivesCBEvent =
         EventManager.RegisterRoutedEvent(nameof(DrivesCB),
                      RoutingStrategy.Bubble, typeof(RoutedEventHandler),
@@ -51,6 +65,7 @@ namespace MiniTC.View
             remove { RemoveHandler(DrivesCBEvent, value); }
         }
 
+        //Raising events
         void RaiseDrive_combobox_DropDownOpened()
         {
             RoutedEventArgs newEventArgs = new RoutedEventArgs(PanelTC.DrivesCBEvent);

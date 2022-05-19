@@ -34,7 +34,9 @@
 
         <view:PanelTC
             Grid.Column="0"
-            Grid.Row="0">
+            Grid.Row="0"
+            ItmSource="{Binding PanelLewy.Drives, Mode=TwoWay}"
+            ItmSelection="{Binding PanelLewy.SDrive, Mode=TwoWay}">
 
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="DrivesCB">
@@ -46,7 +48,15 @@
 
         <view:PanelTC
             Grid.Column="1"
-            Grid.Row="0">
+            Grid.Row="0"
+            ItmSource="{Binding PanelPrawy.Drives, Mode=TwoWay}"
+            ItmSelection="{Binding PanelPrawy.SDrive, Mode=TwoWay}">
+
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="DrivesCB">
+                    <i:InvokeCommandAction Command="{Binding PanelPrawy.ComboboxClick}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
 
         </view:PanelTC>
 

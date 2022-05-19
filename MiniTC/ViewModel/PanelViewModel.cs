@@ -18,30 +18,36 @@ namespace MiniTC.ViewModel
         public PanelViewModel()
         {
             Drives = new ObservableCollection<string>();
-            X = new ObservableCollection<string>();
         }
 
-        //string[] drives = Directory.GetLogicalDrives();
         private ICommand combobox_click;
 
         public ICommand ComboboxClick => combobox_click ?? (combobox_click = new RelayCommand
                                                                         (
                                                                            o =>
                                                                            {
-                                                                               string[] x = new string[5];
-                                                                               for(int i=0; i < 5; i++)
-                                                                               {
-                                                                                   x[i] = i.ToString();
-                                                                               }
-                                                                               
-                                                                               foreach (var item in x)
+                                                                               Drives.Clear();
+                                                                               string[] drives = Directory.GetLogicalDrives();
+
+                                                                               foreach (var item in drives)
                                                                                 {
-                                                                                    X.Add(item);
-                                                                                }}
+                                                                                    Drives.Add(item);
+                                                                                }
+                                                                           }
 
                                                                         , null));
 
         public ObservableCollection<string> Drives { get; set; }
-        public ObservableCollection<string> X { get; set; }
+
+        private string _sdrive;
+        public string SDrive
+        {
+            get => _sdrive;
+            set
+            {
+                _sdrive = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SDrive)));
+            }
+        }
     }
 }
