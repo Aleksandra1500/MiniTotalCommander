@@ -24,7 +24,9 @@
                HorizontalAlignment="Left"
                VerticalAlignment="Center"
                Content="drive:"
-               VerticalContentAlignment="Center" Margin="22,0,0,0"/>
+               VerticalContentAlignment="Center" 
+               Margin="22,0,0,0"
+               FontSize="10"/>
 
         <StackPanel HorizontalAlignment="Center" 
                     VerticalAlignment="Center"
@@ -35,6 +37,7 @@
                  VerticalContentAlignment="Center" 
                  Width="43"
                  Height="22"
+                 FontSize="10"
                  ItemsSource="{Binding ItmSource, RelativeSource={RelativeSource AncestorType={x:Type UserControl}, Mode=FindAncestor}}"
                  SelectedItem="{Binding ItmSelection, RelativeSource={RelativeSource AncestorType={x:Type UserControl}, Mode=FindAncestor}}"
                  DropDownOpened="Drive_combobox_DropDownOpened"/>
@@ -45,7 +48,9 @@
                HorizontalAlignment="Left"
                VerticalAlignment="Center"
                Content="path:"
-               VerticalContentAlignment="Center" Margin="23,0,0,0"/>
+               VerticalContentAlignment="Center" 
+               Margin="23,0,0,0"
+               FontSize="10"/>
 
         <TextBox x:Name="path_textbox"
                  Grid.Row="1"
@@ -53,16 +58,20 @@
                  HorizontalContentAlignment="Left"
                  VerticalContentAlignment="Center"
                  Background="LightGray" 
-                 Margin="65,0,165,0" 
-                 Width="170"
-                 Height="22"/>
+                 Margin="65,0,18,0"
+                 Height="22"
+                 FontSize="10"
+                 IsReadOnly="True"
+                 Text="{Binding MyText, RelativeSource={RelativeSource
+                                            Mode=FindAncestor,
+                                            AncestorType={x:Type UserControl}}}"/>
 
         <ListBox x:Name="listbox"
                  Grid.Row="2"
                  Background="LightGray"
-                 HorizontalAlignment="Center"
-                 VerticalAlignment="Center"
-                 Width="365"
-                 Height="420"/>
+                 Margin="10 10 10 10"
+                 ItemsSource="{Binding ListSource, RelativeSource={RelativeSource AncestorType={x:Type UserControl}, Mode=FindAncestor}}"
+                 SelectedItem="{Binding ListSelection, RelativeSource={RelativeSource AncestorType={x:Type UserControl}, Mode=FindAncestor}}"
+                 MouseDoubleClick="ListboxDoubleClick"/>
     </Grid>
 </UserControl>

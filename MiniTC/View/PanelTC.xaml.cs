@@ -76,5 +76,73 @@ namespace MiniTC.View
         {
             RaiseDrive_combobox_DropDownOpened();
         }
+
+        //TEXTBOX_PATH
+        //Properties
+
+        public static readonly DependencyProperty MyTextProperty =
+            DependencyProperty.Register(
+                nameof(MyText),
+                typeof(string),
+                typeof(PanelTC));
+
+        public string MyText
+        {
+            get { return (string)GetValue(MyTextProperty); }
+            set { SetValue(MyTextProperty, value); }
+        }
+
+        //LISTBOX
+        //Properties
+
+        public static readonly DependencyProperty ListSourceProperty =
+            DependencyProperty.Register(
+                nameof(ListSource),
+                typeof(object),
+                typeof(PanelTC),
+                new PropertyMetadata(null));
+
+        public object ListSource
+        {
+            get { return (object)GetValue(ListSourceProperty); }
+            set { SetValue(ListSourceProperty, value); }
+        }
+
+        public static readonly DependencyProperty ListSelectionProperty =
+            DependencyProperty.Register(
+                nameof(ListSelection),
+                typeof(object),
+                typeof(PanelTC),
+                new PropertyMetadata(null));
+
+        public object ListSelection
+        {
+            get { return (object)GetValue(ComboboxSelectionProperty); }
+            set { SetValue(ComboboxSelectionProperty, value); }
+        }
+
+        //Events
+        public static readonly RoutedEvent ListBoxDoubleClickEvent =
+        EventManager.RegisterRoutedEvent(nameof(ListBoxDoubleClick),
+                     RoutingStrategy.Bubble, typeof(RoutedEventHandler),
+                     typeof(PanelTC));
+
+        public event RoutedEventHandler ListBoxDoubleClick
+        {
+            add { AddHandler(ListBoxDoubleClickEvent, value); }
+            remove { RemoveHandler(ListBoxDoubleClickEvent, value); }
+        }
+
+        //Raising events
+        void RaiseListboxDoubleClick()
+        {
+            RoutedEventArgs newEventArgs = new RoutedEventArgs(PanelTC.ListBoxDoubleClickEvent);
+            RaiseEvent(newEventArgs);
+        }
+
+        private void ListboxDoubleClick(object sender, EventArgs e)
+        {
+            RaiseListboxDoubleClick();
+        }
     }
 }

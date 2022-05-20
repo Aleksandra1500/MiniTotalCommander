@@ -18,6 +18,7 @@ namespace MiniTC.ViewModel
         public PanelViewModel()
         {
             Drives = new ObservableCollection<string>();
+            ListOfFolders = new ObservableCollection<string>();
         }
 
         private ICommand combobox_click;
@@ -46,8 +47,86 @@ namespace MiniTC.ViewModel
             set
             {
                 _sdrive = value;
+                FullPath = SDrive;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SDrive)));
             }
         }
+
+        private string _fullpath;
+        public string FullPath
+        {
+            get => _fullpath;
+            set
+            {
+                ListOfFolders.Clear();
+                _fullpath = value;
+                if(FullPath != null)
+                {
+                    try
+                    {
+                        string[] FoldersList = Directory.GetDirectories(FullPath);
+                        string[] FilesList = Directory.GetFiles(FullPath);
+                        string temp = "..";
+                        if (FullPath.Length > 3)
+                        {
+                            ListOfFolders.Add(temp);
+                        }
+
+                        foreach (string folder in FoldersList)
+                        {
+                            temp = Path.GetFileName(folder);
+                            temp = "<D>" + temp;
+                            ListOfFolders.Add(temp);
+                        }
+                        foreach (string file in FilesList)
+                        {
+                            temp = Path.GetFileName(file);
+                            ListOfFolders.Add(temp);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Nie można tam wejść");
+                        FullPath = Path.GetDirectoryName(Path.GetDirectoryName(FullPath));
+                    }
+                }
+                
+                SelectedFolder = FullPath;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(FullPath)));
+            }
+        }
+
+        public ObservableCollection<string> ListOfFolders { get; set; }
+
+        private string _selectedFolder;
+
+        public string SelectedFolder
+        {
+            get => _selectedFolder;
+            set
+            {
+                _selectedFolder = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedFolder)));
+            }
+        }
+
+        private ICommand myListBoxDoubleClick;
+        public ICommand MyListBoxDoubleClick => myListBoxDoubleClick ?? (myListBoxDoubleClick = new RelayCommand( 
+            o => {
+                if (SelectedFolder.Equals(".."))
+                {
+                    FullPath = Path.GetDirectoryName(Path.GetDirectoryName(FullPath));
+                    if (!FullPath.EndsWith("\\")) 
+                    { 
+                        FullPath += "\\";
+                    }
+                }
+                else if (SelectedFolder.StartsWith("<D>"))
+                {
+                    FullPath += SelectedFolder.Remove(0, 3) + "\\";
+                }
+                SelectedFolder = null;
+            }
+            ,null));
     }
 }

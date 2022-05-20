@@ -30,17 +30,25 @@
                 Margin="372,0,368,0" 
                 Grid.Row="1" 
                 Grid.ColumnSpan="2"
-                VerticalAlignment="Center" Height="23"/>
+                VerticalAlignment="Center" 
+                Height="23"
+                Command="{Binding CopyClick}"/>
 
         <view:PanelTC
             Grid.Column="0"
             Grid.Row="0"
             ItmSource="{Binding PanelLewy.Drives, Mode=TwoWay}"
-            ItmSelection="{Binding PanelLewy.SDrive, Mode=TwoWay}">
+            ItmSelection="{Binding PanelLewy.SDrive, Mode=TwoWay}"
+            MyText="{Binding PanelLewy.FullPath, Mode=TwoWay}"
+            ListSource="{Binding PanelLewy.ListOfFolders, Mode=TwoWay}"
+            ListSelection="{Binding PanelLewy.SelectedFolder, Mode=TwoWay}">
 
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="DrivesCB">
                     <i:InvokeCommandAction Command="{Binding PanelLewy.ComboboxClick}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="ListBoxDoubleClick">
+                    <i:InvokeCommandAction Command="{Binding PanelLewy.MyListBoxDoubleClick}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
 
@@ -50,11 +58,17 @@
             Grid.Column="1"
             Grid.Row="0"
             ItmSource="{Binding PanelPrawy.Drives, Mode=TwoWay}"
-            ItmSelection="{Binding PanelPrawy.SDrive, Mode=TwoWay}">
+            ItmSelection="{Binding PanelPrawy.SDrive, Mode=TwoWay}"
+            MyText="{Binding PanelPrawy.FullPath, Mode=TwoWay}"
+            ListSource="{Binding PanelPrawy.ListOfFolders, Mode=TwoWay}"
+            ListSelection="{Binding PanelPrawy.SelectedFolder, Mode=TwoWay}">
 
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="DrivesCB">
                     <i:InvokeCommandAction Command="{Binding PanelPrawy.ComboboxClick}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="ListBoxDoubleClick">
+                    <i:InvokeCommandAction Command="{Binding PanelPrawy.MyListBoxDoubleClick}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
 
