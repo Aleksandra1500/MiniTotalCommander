@@ -84,14 +84,14 @@ namespace MiniTC.ViewModel
                             ListOfFolders.Add(temp);
                         }
                     }
-                    catch (Exception ex)
+                    catch
                     {
                         Console.WriteLine("Nie można tam wejść");
                         FullPath = Path.GetDirectoryName(Path.GetDirectoryName(FullPath));
                     }
                 }
                 
-                SelectedFolder = FullPath;
+                //SelectedFolder = FullPath;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(FullPath)));
             }
         }

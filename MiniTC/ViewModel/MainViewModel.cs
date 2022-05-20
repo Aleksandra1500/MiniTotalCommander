@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace MiniTC.ViewModel
@@ -26,21 +27,41 @@ namespace MiniTC.ViewModel
         public ICommand CopyClick => copyClick ?? (copyClick = new RelayCommand(
             o =>
             {
-                string file = PanelLewy.SelectedFolder;
-                string sourceFileName = PanelLewy.FullPath + file;
-                string targetFileName = PanelPrawy.FullPath + file;
-                try
+                if (PanelPrawy.SelectedFolder!=null)
                 {
-                    File.Copy(sourceFileName, targetFileName);
+                    string Pfile = PanelPrawy.SelectedFolder;
+                    string PsourceFileName = PanelPrawy.FullPath + Pfile;
+                    string LtargetFileName = PanelLewy.FullPath + Pfile;
+                    try
+                    {
+                        File.Copy(PsourceFileName, LtargetFileName);
+                    }
+                    catch
+                    {
+                        Console.WriteLine("Nie udało się skopiować pliku");
+                        MessageBox.Show("Nie udało się skopiować pliku");
+                    }
+                    PanelLewy.FullPath = PanelLewy.FullPath;
                 }
-                catch (Exception ex)
+                else
                 {
-                    Console.WriteLine("Taki plik już istnieje");
+                    string Lfile = PanelLewy.SelectedFolder;
+                    string LsourceFileName = PanelLewy.FullPath + Lfile;
+                    string PtargetFileName = PanelPrawy.FullPath + Lfile;
+                    try
+                    {
+                        File.Copy(LsourceFileName, PtargetFileName);
+                    }
+                    catch
+                    {
+                        Console.WriteLine("Nie udało się skopiować pliku");
+                        MessageBox.Show("Nie udało się skopiować pliku");
+                    }
+                    PanelPrawy.FullPath = PanelPrawy.FullPath;
                 }
-                
-                PanelPrawy.FullPath = PanelPrawy.FullPath;
             }
             ,
-            o => PanelLewy.SelectedFolder!=null && PanelPrawy.FullPath!=null));
+            o => (PanelLewy.SelectedFolder!=null && PanelPrawy.FullPath!=null && !PanelLewy.SelectedFolder.StartsWith("<D>")) || 
+                    (PanelPrawy.SelectedFolder != null && PanelLewy.FullPath != null && !PanelPrawy.SelectedFolder.StartsWith("<D>"))));
     }
 }
